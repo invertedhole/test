@@ -4,7 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My GitHub Page</title>
-    <link rel="stylesheet" href="styles.css">
+ <link rel="stylesheet" href="styles.css">
+       <style>
+    body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #FFDAB9;
+        }
+        /* Стиль для вкладок */
+        .tabs {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+             overflow: hidden;
+    border: none;
+    background-color: #8FBC8F;
+        }
+        .tabs li {
+            flex: 1;
+            text-align: center;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            padding: 10px;
+        }
+        .tabs li.active {
+            border-bottom: 2px solid #007bff;
+        }
+        /* Стиль для контента вкладок */
+        .tab-content {
+            display: none;
+            padding: 20px;
+        }
+        .tab-content.active {
+            display: block;
+        }
+    </style>
 </head>
 <body>
     <div class="tab-container">
