@@ -148,6 +148,22 @@ body {
     </style>
 <script>
 // scripts.js
+     const tabs = document.querySelectorAll('.tabs li');
+        const tabContents = document.querySelectorAll('.tab-content');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetTab = tab.dataset.tab;
+                const targetContent = document.getElementById(targetTab);
+                tabs.forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                });
+                tab.classList.add('active');
+                targetContent.classList.add('active');
+            });
+        });
 function openTab(evt, tabName) {
     var i, tabcontent, tablinks;
     // Hide all tab content
@@ -164,3 +180,6 @@ function openTab(evt, tabName) {
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
 }
+</script>
+</body>
+</html>
