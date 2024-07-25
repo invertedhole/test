@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My GitHub Page</title>
- <link rel="stylesheet" href="styles.css">
-       <style>
-    body {
+   <title>Мой сайт</title>
+    <style>
+        /* Базовый стиль для всего сайта */
+        body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #FFDAB9;
         }
         /* Стиль для вкладок */
         .tabs {
@@ -18,9 +17,6 @@
             list-style: none;
             margin: 0;
             padding: 0;
-             overflow: hidden;
-    border: none;
-    background-color: #8FBC8F;
         }
         .tabs li {
             flex: 1;
@@ -43,7 +39,18 @@
     </style>
 </head>
 <body>
-    <div class="tab-container">
+   <main>
+        <!-- Основное содержимое сайта -->
+        <ul class="tabs">
+            <li class="active" data-tab="tab1">О нас</li>
+            <li data-tab="tab2">Жизнь школы</li>
+            <li data-tab="tab3">Новости</li>
+        </ul
+      <div id="tab1" class="tab-content active">
+          <p>(=</p>
+          </div>
+          <div id="tab2" class="tab-content">
+       <div class="tab-container">
         <div class="tab-links">
             <button class="tab-link active" onclick="openTab(event, 'Home')">Home</button>
             <button class="tab-link" onclick="openTab(event, 'About')">About</button>
