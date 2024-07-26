@@ -73,8 +73,6 @@
             </form>
             <h2>Вход</h2>
             <form id="loginForm">
-                <input type="text" id="username" name="username" autocomplete="username">
-                <label for="loginUsername">Имя пользователя:</label>
                 <input type="text" id="loginUsername" name="username" required>
                 <label for="loginPassword">Пароль:</label>
                 <input type="password" id="loginPassword" name="password" required>
