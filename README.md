@@ -172,4 +172,6 @@
                 students[name].push(grade);
                 localStorage.setItem('students', JSON.stringify(students));
                 event.target.reset
-
+       </script>
+    </body>
+</html>
