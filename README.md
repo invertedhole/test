@@ -177,10 +177,14 @@
     updateUI();
     updateTable();
 });
-        // Сохранение данных пользователей в localStorage
-localStorage.setItem('users', JSON.stringify(users));
-// Загрузка данных пользователей из localStorage
-const users = JSON.parse(localStorage.getItem('users')) || {};
+            // Сохранение данных пользователей в localStorage
+         localStorage.setItem('users', JSON.stringify(users));
+         // Загрузка данных пользователей из localStorage
+        const users = JSON.parse(localStorage.getItem('users')) || {};
+        // Сохранение данных учеников в localStorage
+         localStorage.setItem('students', JSON.stringify(students));
+       // Загрузка данных учеников из localStorage
+       const students = JSON.parse(localStorage.getItem('students')) || {};
        </script>
     </body>
 </html>
