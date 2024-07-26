@@ -12,35 +12,29 @@
             padding: 0;
             background-color: #F5F5DC;
         }
-
         header {
             background-color: #333;
             color: white;
             padding: 10px 0;
             text-align: center;
         }
-
         nav {
             display: flex;
             justify-content: center;
             background-color: #444;
         }
-
         nav a {
             color: white;
             padding: 14px 20px;
             text-decoration: none;
             text-align: center;
         }
-
         nav a:hover {
             background-color: #555;
         }
-
         .content {
             padding: 20px;
         }
-
         footer {
             background-color: #333;
             color: white;
@@ -50,7 +44,6 @@
             width: 100%;
             bottom: 0;
         }
-
         /* Стиль для вкладок */
         .tabs {
             display: flex;
@@ -61,7 +54,6 @@
             border: none;
             background-color: #8FBC8F;
         }
-
         .tabs li {
             flex: 1;
             text-align: center;
@@ -69,33 +61,27 @@
             cursor: pointer;
             padding: 10px;
         }
-
         .tabs li.active {
             border-bottom: 2px solid #007bff;
         }
-
         /* Стиль для контента вкладок */
         .tab-content {
             display: none;
             padding: 20px;
         }
-
         .tab-content.active {
             display: block;
         }
-
         /* Vertical Tabs */
         .vertical-tabs {
             display: flex;
         }
-
         .tab {
             flex: 1;
             background-color: #f1f1f1;
             padding: 10px;
             border-right: 1px solid #ccc;
         }
-
         .tab button {
             display: block;
             background-color: inherit;
@@ -108,22 +94,18 @@
             cursor: pointer;
             transition: 0.3s;
         }
-
         .tab button:hover {
             background-color: #ddd;
         }
-
         .tab button.active {
             background-color: #ccc;
         }
-
         .tabcontent {
             flex: 3;
             padding: 10px;
             border-left: 1px solid #ccc;
             display: none;
         }
-
         .tabcontent.show {
             display: block;
         }
@@ -159,21 +141,21 @@
             <!-- Vertical Tabs -->
             <div class="vertical-tabs">
                 <div class="tab">
-                    <button class="tablinks" onclick="openTab(event, 'VerticalTab1')">Vertical Tab 1</button>
-                    <button class="tablinks" onclick="openTab(event, 'VerticalTab2')">Vertical Tab 2</button>
-                    <button class="tablinks" onclick="openTab(event, 'VerticalTab3')">Vertical Tab 3</button>
+                    <button class="tablinks" onclick="openTab(event, 'Выпускной 2024')">Выпускной 2024</button>
+                    <button class="tablinks" onclick="openTab(event, 'Мероприятия')">Мероприятия</button>
+                    <button class="tablinks" onclick="openTab(event, 'Первый звонок')">Первый звонок</button>
                 </div>
-                <div id="VerticalTab1" class="tabcontent">
-                    <h3>Vertical Tab 1</h3>
-                    <p>Content for Vertical Tab 1.</p>
+                <div id="Выпускной 2024" class="tabcontent">
+                    <h3>"Выпускной 2024"</h3>
+                    <p>....</p>
                 </div>
-                <div id="VerticalTab2" class="tabcontent">
-                    <h3>Vertical Tab 2</h3>
-                    <p>Content for Vertical Tab 2.</p>
+                <div id="Мероприятия" class="tabcontent">
+                    <h3>Мероприятия</h3>
+                    <p>....</p>
                 </div>
-                <div id="VerticalTab3" class="tabcontent">
-                    <h3>Vertical Tab 3</h3>
-                    <p>Content for Vertical Tab 3.</p>
+                <div id="'Первый звонок" class="tabcontent">
+                    <h3>Первый звонок</h3>
+                    <p>....</p>
                 </div>
             </div>
         </div>
