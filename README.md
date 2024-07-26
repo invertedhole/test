@@ -179,6 +179,10 @@
     updateUI();
     updateTable();
 });
+        // Сохранение данных пользователей в localStorage
+localStorage.setItem('users', JSON.stringify(users));
+// Загрузка данных пользователей из localStorage
+const users = JSON.parse(localStorage.getItem('users')) || {};
        </script>
     </body>
 </html>
