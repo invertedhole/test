@@ -61,16 +61,6 @@
         <h1>Электронный дневник</h1>
     </header>
     <main>
-        <div id="authForms">
-            <h2>Регистрация</h2>
-            <form id="registerForm">
-                <label for="regUsername">Имя пользователя:</label>
-                <input type="text" id="regUsername" name="username" required>
-                <label for="regEmail">Email:</label>
-                <input type="email" id="regEmail" name="email" required>
-                <label for="regPassword">Пароль:</label>
-                <input type="password" id="regPassword" name="password" required>
-                <input type="submit" value="Зарегистрироваться">
             </form>
             <h2>Вход</h2>
             <form id="loginForm">
