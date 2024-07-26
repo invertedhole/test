@@ -79,41 +79,7 @@
         </form>
     </main>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const studentsTable = document.getElementById('studentsTable').getElementsByTagName('tbody')[0];
-            const addStudentForm = document.getElementById('addStudentForm');
-            // Загрузка данных из локального хранилища
-            const students = JSON.parse(localStorage.getItem('students')) || {};
-            // Функция для обновления таблицы
-            function updateTable() {
-                studentsTable.innerHTML = '';
-                for (const [name, grades] of Object.entries(students)) {
-                    const row = studentsTable.insertRow();
-                    const cellName = row.insertCell(0);
-                    const cellGrades = row.insertCell(1);
-                    cellName.textContent = name;
-                    cellGrades.textContent = grades.join(', ');
-                }
-            }
-            // Обработчик формы добавления ученика
-            addStudentForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                const name = event.target.name.value.trim();
-                const grade = parseInt(event.target.grade.value.trim(), 10);
-                if (!students[name]) {
-                    students[name] = [];
-                }
-                students[name].push(grade);
-                // Сохранение данных в локальное хранилище
-                localStorage.setItem('students', JSON.stringify(students));
-                // Очистка формы
-                event.target.name.value = '';
-                event.target.grade.value = '';
-                updateTable();
-            });
-            // Инициализация таблицы
-            updateTable();
-        });
+       
     </script>
 </body>
 </html>
