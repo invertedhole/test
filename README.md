@@ -103,106 +103,73 @@
     </main>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-    const studentsTable = document.getElementById('studentsTable').getElementsByTagName('tbody')[0];
-    const addStudentForm = document.getElementById('addStudentForm');
-    const registerForm = document.getElementById('registerForm');
-    const loginForm = document.getElementById('loginForm');
-    const authForms = document.getElementById('authForms');
-    let currentUser = null;
-    let students = {};
-    let users = {};
-    async function fetchData() {
-        try {
-            const response = await fetch('/api/data');
-            const data = await response.json();
-            users = data.users || {};
-            students = data.students || {};
-            currentUser = data.currentUser || null;
-            updateTable();
-            updateUI();
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    }
-    async function saveData() {
-        try {
-            const data = { users, students, currentUser };
-            await fetch('/api/data', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
+            const studentsTable = document.getElementById('studentsTable').getElementsByTagName('tbody')[0];
+            const addStudentForm = document.getElementById('addStudentForm');
+            const registerForm = document.getElementById('registerForm');
+            const loginForm = document.getElementById('loginForm');
+            const authForms = document.getElementById('authForms');
+            let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+            const students = JSON.parse(localStorage.getItem('students')) || {};
+            const users = JSON.parse(localStorage.getItem('users')) || {};
+            function updateTable() {
+                studentsTable.innerHTML = '';
+                for (const [name, grades] of Object.entries(students)) {
+                    const row = studentsTable.insertRow();
+                    const cellName = row.insertCell(0);
+                    const cellGrades = row.insertCell(1);
+                    cellName.textContent = name;
+                    cellGrades.textContent = grades.join(', ');
+                }
+            }
+            function updateUI() {
+                if (currentUser) {
+                    authForms.style.display = 'none';
+                    addStudentForm.style.display = currentUser.role === 'admin' ? 'flex' : 'none';
+                } else {
+                    authForms.style.display = 'block';
+                    addStudentForm.style.display = 'none';
+                }
+            }
+            registerForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const username = event.target.username.value.trim();
+                const email = event.target.email.value.trim();
+                const password = event.target.password.value.trim();
+                if (users[username]) {
+                    alert('Пользователь с таким именем уже существует');
+                    return;
+                }
+                const isFirstUser = Object.keys(users).length === 0;
+                users[username] = { email: email, password: password, role: isFirstUser ? 'admin' : 'user' };
+                localStorage.setItem('users', JSON.stringify(users));
+                alert('Регистрация успешна');
+                event.target.reset();
             });
-        } catch (error) {
-            console.error('Error saving data:', error);
-        }
-    }
-    function updateTable() {
-        studentsTable.innerHTML = '';
-        for (const [name, grades] of Object.entries(students)) {
-            const row = studentsTable.insertRow();
-            const cellName = row.insertCell(0);
-            const cellGrades = row.insertCell(1);
-            cellName.textContent = name;
-            cellGrades.textContent = grades.join(', ');
-        }
-    }
-    function updateUI() {
-        if (currentUser) {
-            authForms.style.display = 'none';
-            addStudentForm.style.display = currentUser.role === 'admin' ? 'flex' : 'none';
-        } else {
-            authForms.style.display = 'block';
-            addStudentForm.style.display = 'none';
-        }
-    }
-    registerForm.addEventListener('submit', async function(event) {
-        event.preventDefault();
-        const username = event.target.username.value.trim();
-        const email = event.target.email.value.trim();
-        const password = event.target.password.value.trim();
-        if (users[username]) {
-            alert('Пользователь с таким именем уже существует');
-            return;
-        }
-        const isFirstUser = Object.keys(users).length === 0;
-        users[username] = { email: email, password: password, role: isFirstUser ? 'admin' : 'user' };
-        await saveData();
-        alert('Регистрация успешна');
-        event.target.reset();
-    });
-    loginForm.addEventListener('submit', async function(event) {
-        event.preventDefault();
-        const username = event.target.username.value.trim();
-        const password = event.target.password.value.trim();
-        if (!users[username] || users[username].password !== password) {
-            alert('Неверное имя пользователя или пароль');
-            return;
-        }
-        currentUser = { username: username, role: users[username].role };
-        await saveData();
-        updateUI();
-        alert('Вход выполнен');
-    });
-    addStudentForm.addEventListener('submit', async function(event) {
-        event.preventDefault();
-        if (!currentUser || currentUser.role !== 'admin') {
-            alert('У вас нет прав для добавления оценки');
-            return;
-        }
-        const name = event.target.name.value.trim();
-        const grade = parseInt(event.target.grade.value.trim(), 10);
-        if (!students[name]) {
-            students[name] = [];
-        }
-        students[name].push(grade);
-        await saveData();
-        event.target.reset();
-        updateTable();
-    });
-    fetchData();
-});
-    </script>
-</body>
-</html>
+            loginForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const username = event.target.username.value.trim();
+                const password = event.target.password.value.trim();
+                if (!users[username] || users[username].password !== password) {
+                    alert('Неверное имя пользователя или пароль');
+                    return;
+                }
+                currentUser = { username: username, role: users[username].role };
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                updateUI();
+                alert('Вход выполнен');
+            });
+            addStudentForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                if (!currentUser || currentUser.role !== 'admin') {
+                    alert('У вас нет прав для добавления оценки');
+                    return;
+                }
+                const name = event.target.name.value.trim();
+                const grade = parseInt(event.target.grade.value.trim(), 10);
+                if (!students[name]) {
+                    students[name] = [];
+                }
+                students[name].push(grade);
+                localStorage.setItem('students', JSON.stringify(students));
+                event.target.reset
+
