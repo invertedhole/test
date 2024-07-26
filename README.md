@@ -61,6 +61,17 @@
         <h1>Электронный дневник</h1>
     </header>
     <main>
+        <div id="authForms">
+            <h2>Регистрация</h2>
+            <form id="registerForm">
+                <label for="regUsername">Имя пользователя:</label>
+                <input type="text" id="regUsername" name="username" required>
+                <label for="regEmail">Email:</label>
+                <input type="email" id="regEmail" name="email" required>
+                <label for="regPassword">Пароль:</label>
+                <input type="password" id="regPassword" name="password" required>
+                <input type="submit" value="Зарегистрироваться">
+            </form>
             <h2>Вход</h2>
             <form id="loginForm">
                 <label for="loginUsername">Имя пользователя:</label>
@@ -99,6 +110,7 @@
             const authForms = document.getElementById('authForms');
             let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
             const students = JSON.parse(localStorage.getItem('students')) || {};
+            const users = JSON.parse(localStorage.getItem('users')) || {};
             function updateTable() {
                 studentsTable.innerHTML = '';
                 for (const [name, grades] of Object.entries(students)) {
@@ -112,7 +124,7 @@
             function updateUI() {
                 if (currentUser) {
                     authForms.style.display = 'none';
-                    addStudentForm.style.display = 'flex';
+                    addStudentForm.style.display = currentUser.role === 'admin' ? 'flex' : 'none';
                 } else {
                     authForms.style.display = 'block';
                     addStudentForm.style.display = 'none';
@@ -123,12 +135,12 @@
                 const username = event.target.username.value.trim();
                 const email = event.target.email.value.trim();
                 const password = event.target.password.value.trim();
-                let users = JSON.parse(localStorage.getItem('users')) || {};
                 if (users[username]) {
                     alert('Пользователь с таким именем уже существует');
                     return;
                 }
-                users[username] = { email: email, password: password, role: 'user' };
+                const isFirstUser = Object.keys(users).length === 0;
+                users[username] = { email: email, password: password, role: isFirstUser ? 'admin' : 'user' };
                 localStorage.setItem('users', JSON.stringify(users));
                 alert('Регистрация успешна');
                 event.target.reset();
@@ -137,7 +149,6 @@
                 event.preventDefault();
                 const username = event.target.username.value.trim();
                 const password = event.target.password.value.trim();
-                let users = JSON.parse(localStorage.getItem('users')) || {};
                 if (!users[username] || users[username].password !== password) {
                     alert('Неверное имя пользователя или пароль');
                     return;
@@ -149,7 +160,7 @@
             });
             addStudentForm.addEventListener('submit', function(event) {
                 event.preventDefault();
-                if (!currentUser || currentUser.role !== 'user') {
+                if (!currentUser || currentUser.role !== 'admin') {
                     alert('У вас нет прав для добавления оценки');
                     return;
                 }
