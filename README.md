@@ -3,21 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Мой сайт</title>
+    <title>Мой сайт</title>
     <style>
         /* Базовый стиль для всего сайта */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #F5F5DC;
         }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #444;
+        }
+
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        nav a:hover {
+            background-color: #555;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
         /* Стиль для вкладок */
         .tabs {
             display: flex;
             list-style: none;
             margin: 0;
             padding: 0;
+            overflow: hidden;
+            border: none;
+            background-color: #8FBC8F;
         }
+
         .tabs li {
             flex: 1;
             text-align: center;
@@ -25,130 +69,126 @@
             cursor: pointer;
             padding: 10px;
         }
+
         .tabs li.active {
             border-bottom: 2px solid #007bff;
         }
+
         /* Стиль для контента вкладок */
         .tab-content {
             display: none;
             padding: 20px;
         }
+
         .tab-content.active {
+            display: block;
+        }
+
+        /* Vertical Tabs */
+        .vertical-tabs {
+            display: flex;
+        }
+
+        .tab {
+            flex: 1;
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-right: 1px solid #ccc;
+        }
+
+        .tab button {
+            display: block;
+            background-color: inherit;
+            color: black;
+            padding: 10px 15px;
+            width: 100%;
+            border: none;
+            outline: none;
+            text-align: left;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        .tab button.active {
+            background-color: #ccc;
+        }
+
+        .tabcontent {
+            flex: 3;
+            padding: 10px;
+            border-left: 1px solid #ccc;
+            display: none;
+        }
+
+        .tabcontent.show {
             display: block;
         }
     </style>
 </head>
 <body>
-   <main>
+    <header>
+        <!-- Заголовок сайта -->
+        <h1>ГБУ ОО ЗО "Алексеевская СОШ"</h1>
+        <img src="https://raw.githubusercontent.com/invertedhole/ooalexsosh/main/картинка2.PNG" alt="School Logo">
+    </header>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+    <main>
         <!-- Основное содержимое сайта -->
         <ul class="tabs">
             <li class="active" data-tab="tab1">О нас</li>
             <li data-tab="tab2">Жизнь школы</li>
             <li data-tab="tab3">Новости</li>
-        </ul
-      <div id="tab1" class="tab-content active">
-          <p>(=</p>
-          </div>
-          <div id="tab2" class="tab-content">
-       <div class="tab-container">
-        <div class="tab-links">
-            <button class="tab-link active" onclick="openTab(event, 'Home')">Home</button>
-            <button class="tab-link" onclick="openTab(event, 'About')">About</button>
-            <button class="tab-link" onclick="openTab(event, 'Projects')">Projects</button>
-            <button class="tab-link" onclick="openTab(event, 'Contact')">Contact</button>
+        </ul>
+        <div id="tab1" class="tab-content active">
+            <p>Контактные данные</p>
+            <p>Директор: +7 990 077 2103</p>
+            <p>Отдел кадров: +7 990 058 1933</p>
         </div>
-        <div class="tab-content" id="Home">
-            <h2>Home</h2>
-            <p>Welcome to my GitHub page!</p>
-            <img src="images/home.jpg" alt="Home Image">
+        <div id="tab2" class="tab-content">
+            <h2>Жизнь школы</h2>
+            <p>Content for the school life tab.</p>
+            <!-- Vertical Tabs -->
+            <div class="vertical-tabs">
+                <div class="tab">
+                    <button class="tablinks" onclick="openTab(event, 'VerticalTab1')">Vertical Tab 1</button>
+                    <button class="tablinks" onclick="openTab(event, 'VerticalTab2')">Vertical Tab 2</button>
+                    <button class="tablinks" onclick="openTab(event, 'VerticalTab3')">Vertical Tab 3</button>
+                </div>
+                <div id="VerticalTab1" class="tabcontent">
+                    <h3>Vertical Tab 1</h3>
+                    <p>Content for Vertical Tab 1.</p>
+                </div>
+                <div id="VerticalTab2" class="tabcontent">
+                    <h3>Vertical Tab 2</h3>
+                    <p>Content for Vertical Tab 2.</p>
+                </div>
+                <div id="VerticalTab3" class="tabcontent">
+                    <h3>Vertical Tab 3</h3>
+                    <p>Content for Vertical Tab 3.</p>
+                </div>
+            </div>
         </div>
-        <div class="tab-content" id="About" style="display:none;">
-            <h2>About</h2>
-            <p>This is the about section.</p>
-            <img src="images/about.jpg" alt="About Image">
+        <div id="tab3" class="tab-content">
+            <h2>Новости</h2>
+            <p>Контент вкладки 3</p>
         </div>
-        <div class="tab-content" id="Projects" style="display:none;">
-            <h2>Projects</h2>
-            <p>These are my projects.</p>
-            <img src="images/projects.jpg" alt="Projects Image">
-        </div>
-        <div class="tab-content" id="Contact" style="display:none;">
-            <h2>Contact</h2>
-            <p>Get in touch with me.</p>
-            <img src="images/contact.jpg" alt="Contact Image">
-        </div>
-    </div>
-    <script src="scripts.js"></script>
-</body>
-</html>
-<style>
-/* styles.css */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    padding: 20px;
-}
-.tab-container {
-    display: flex;
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-.tab-links {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    background-color: #f1f1f1;
-}
-.tab-link {
-    padding: 15px;
-    background-color: #f1f1f1;
-    border: none;
-    outline: none;
-    text-align: left;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-size: 18px;
-}
-.tab-link:hover {
-    background-color: #ddd;
-}
-.tab-link.active {
-    background-color: #ccc;
-}
-.tab-content {
-    flex: 3;
-    padding: 20px;
-    border-left: 1px solid #ccc;
-}
-.tab-content h2 {
-    margin-top: 0;
-}
-.tab-content img {
-    max-width: 100%;
-    height: auto;
-    margin-top: 20px;
-}
-@media screen and (max-width: 600px) {
-    .tab-container {
-        flex-direction: column;
-    }
-    .tab-links {
-        flex: none;
-        width: 100%;
-    }
-    .tab-content {
-        flex: none;
-        width: 100%;
-        border-left: none;
-        border-top: 1px solid #ccc;
-    }
-}
-    </style>
-<script>
-// scripts.js
-     const tabs = document.querySelectorAll('.tabs li');
+    </main>
+    <footer>
+        <!-- Нижняя часть сайта -->
+        <p>&copy; 2024 сайт ГБУ ОО ЗО "Алексеевская СОШ"</p>
+    </footer>
+    <script>
+        // JavaScript для управления вкладками
+        const tabs = document.querySelectorAll('.tabs li');
         const tabContents = document.querySelectorAll('.tab-content');
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
@@ -164,22 +204,26 @@ body {
                 targetContent.classList.add('active');
             });
         });
-function openTab(evt, tabName) {
-    var i, tabcontent, tablinks;
-    // Hide all tab content
-    tabcontent = document.getElementsByClassName("tab-content");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    // Remove the 'active' class from all tab links
-    tablinks = document.getElementsByClassName("tab-link");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    // Show the current tab, and add 'active' class to the clicked tab link
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
-}
-</script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            // Get all elements with class="tabcontent" and hide them
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            // Get all elements with class="tablinks" and remove the class "active"
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+        // Show the first vertical tab by default
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelector(".tablinks").click();
+        });
+    </script>
 </body>
 </html>
