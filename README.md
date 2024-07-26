@@ -61,7 +61,6 @@
         <h1>Электронный дневник</h1>
     </header>
     <main>
-            </form>
             <h2>Вход</h2>
             <form id="loginForm">
                 <label for="loginUsername">Имя пользователя:</label>
