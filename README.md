@@ -100,14 +100,10 @@
         </form>
     </main>
       <script type="module">
-   // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
+          import { initializeApp } from 'firebase/app';
+// TODO: Replace the following with your app's Firebase project configuration
+const firebaseConfig = {
+ const firebaseConfig = {
  apiKey: "AIzaSyAVy1BVdsVnRkIQB6xRG00f6pmd9WNo97U",
  authDomain: "alexsosh-7c608.firebaseapp.com",
  databaseURL: "https://alexsosh-7c608-default-rtdb.firebaseio.com",
@@ -117,12 +113,38 @@
  appId: "1:540899168475:web:dc5caf50b717ea5fdcbcfe",
  measurementId: "G-B603CWP3RT"
   };
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  // Initialize Firebase Realtime Database
-  const database = getDatabase(app);
-// Обработчик событий для формы добавления оценки
+};
+const app = initializeApp(firebaseConfig);
+   // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-analytics.js";
+ import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+// Follow this pattern to import other Firebase services
+// import { } from 'firebase/<service>';
+// TODO: Replace the following with your app's Firebase project configuration
+const firebaseConfig = {
+ const firebaseConfig = {
+ apiKey: "AIzaSyAVy1BVdsVnRkIQB6xRG00f6pmd9WNo97U",
+ authDomain: "alexsosh-7c608.firebaseapp.com",
+ databaseURL: "https://alexsosh-7c608-default-rtdb.firebaseio.com",
+ projectId: "alexsosh-7c608",
+ storageBucket: "alexsosh-7c608.appspot.com",
+ messagingSenderId: "540899168475",
+ appId: "1:540899168475:web:dc5caf50b717ea5fdcbcfe",
+ measurementId: "G-B603CWP3RT"
+  };
+};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+// Get a list of cities from your database
+async function getCities(db) {
+  const citiesCol = collection(db, 'cities');
+  const citySnapshot = await getDocs(citiesCol);
+  const cityList = citySnapshot.docs.map(doc => doc.data());
+  return cityList;
+}
+          // Обработчик событий для формы добавления оценки
 addStudentForm.addEventListener('submit', function(event) {
   event.preventDefault();
   if (!currentUser || currentUser.role !== 'admin') {
@@ -131,9 +153,8 @@ addStudentForm.addEventListener('submit', function(event) {
   }
   const name = event.target.name.value.trim();
   const grade = parseInt(event.target.grade.value.trim(), 10);
-  const studentsRef = database.ref('students');
-  const newStudentRef = studentsRef.push();
-  newStudentRef.set({
+  const studentsRef = collection(db, 'students');
+  const newStudentRef = addDoc(studentsRef, {
     name: name,
     grade: grade
   });
@@ -150,9 +171,8 @@ registerForm.addEventListener('submit', function(event) {
   }
   const isFirstUser = Object.keys(users).length === 0;
   users[username] = { email: email, password: password, role: isFirstUser ? 'admin' : 'user' };
-  const usersRef = database.ref('users');
-  const newUserRef = usersRef.push();
-  newUserRef.set({
+  const usersRef = collection(db, 'users');
+  const newUserRef = addDoc(usersRef, {
     username: username,
     email: email,
     password: password,
@@ -169,39 +189,39 @@ loginForm.addEventListener('submit', function(event) {
     return;
   }
   currentUser = { username: username, role: users[username].role };
-  const usersRef = database.ref('users');
-  const userRef = usersRef.orderByChild('username').equalTo(username).limitToFirst(1);
-  userRef.once('value', function(snapshot) {
+  const usersRef = collection(db, 'users');
+  const userRef = query(usersRef, where("username", "==", username), limit(1));
+  getDocs(userRef).then(function(snapshot) {
     snapshot.forEach(function(childSnapshot) {
-      const userData = childSnapshot.val();
+      const userData = childSnapshot.data();
       currentUser = { username: userData.username, role: userData.role };
     });
     updateUI();
     alert('Вход выполнен');
   });
 });
-// Обновление таблицы с использованием данных students из Firebase Realtime Database
-const studentsRef = database.ref('students');
-studentsRef.on('value', function(snapshot) {
-  const students = snapshot.val();
+// Обновление таблицы с использованием данных students из Firestore
+const studentsRef = collection(db, 'students');
+const q = query(studentsRef);
+const unsubscribe = onSnapshot(q, function(snapshot) {
   let tableHtml = '';
-  for (let key in students) {
-    const student = students[key];
+  snapshot.forEach(function(doc) {
+    const student = doc.data();
     tableHtml += `<tr><td>${student.name}</td><td>${student.grade}</td></tr>`;
-  }
+  });
   studentsTable.innerHTML = tableHtml;
 });
-// Обновление UI с использованием данных users из Firebase Realtime Database
-const usersRef = database.ref('users');
-usersRef.on('value', function(snapshot) {
-  const users = snapshot.val();
-  for (let key in users) {
-    const user = users[key];
+// Обновление UI с использованием данных users из Firestore
+const usersRef = collection(db, 'users');
+const q = query(usersRef);
+const unsubscribe = onSnapshot(q, function(snapshot) {
+  snapshot.forEach(function(doc) {
+    const user = doc.data();
     if (user.username === currentUser.username) {
       currentUser = { username: user.username, role: user.role };
       break;
     }
-  }
+  });
   updateUI();
 });
 function updateUI() {
