@@ -100,29 +100,28 @@
         </form>
     </main>
       <script type="module">
-  // Import the functions you need from the SDKs you need
+   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-analytics.js";
-  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-database.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
   // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   const firebaseConfig = {
-    apiKey: "AIzaSyAVy1BVdsVnRkIQB6xRG00f6pmd9WNo97U",
-    authDomain: "alexsosh-7c608.firebaseapp.com",
-    databaseURL: "https://alexsosh-7c608-default-rtdb.firebaseio.com",
-    projectId: "alexsosh-7c608",
-    storageBucket: "alexsosh-7c608.appspot.com",
-    messagingSenderId: "540899168475",
-    appId: "1:540899168475:web:dc5caf50b717ea5fdcbcfe",
-    measurementId: "G-B603CWP3RT"
+ apiKey: "AIzaSyAVy1BVdsVnRkIQB6xRG00f6pmd9WNo97U",
+ authDomain: "alexsosh-7c608.firebaseapp.com",
+ databaseURL: "https://alexsosh-7c608-default-rtdb.firebaseio.com",
+ projectId: "alexsosh-7c608",
+ storageBucket: "alexsosh-7c608.appspot.com",
+ messagingSenderId: "540899168475",
+ appId: "1:540899168475:web:dc5caf50b717ea5fdcbcfe",
+ measurementId: "G-B603CWP3RT"
   };
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
   // Initialize Firebase Realtime Database
   const database = getDatabase(app);
-    <script>
 // Обработчик событий для формы добавления оценки
 addStudentForm.addEventListener('submit', function(event) {
   event.preventDefault();
