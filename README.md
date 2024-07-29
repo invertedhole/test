@@ -180,11 +180,16 @@
             // Сохранение данных пользователей в localStorage
          localStorage.setItem('users', JSON.stringify(users));
          // Загрузка данных пользователей из localStorage
-        const users = JSON.parse(localStorage.getItem('users')) || {};
-        // Сохранение данных учеников в localStorage
-         localStorage.setItem('students', JSON.stringify(students));
-       // Загрузка данных учеников из localStorage
-       const students = JSON.parse(localStorage.getItem('students')) || {};
+        const studentsRef = database.ref('students');
+        const usersRef = database.ref('users');
+        studentsRef.on('value', function(snapshot) {
+        const students = snapshot.val();
+       // Обновите таблицу с использованием данных students
+       });
+       usersRef.on('value', function(snapshot) {
+        const users = snapshot.val();
+      // Обновите UI с использованием данных users
+      });
        </script>
     </body>
 </html>
