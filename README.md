@@ -131,8 +131,10 @@ const firebaseConfig = {
  projectId: "alexsosh-7c608",
  storageBucket: "alexsosh-7c608.appspot.com",
  messagingSenderId: "540899168475",
- appId: "1:540899168475:web:dc5caf50b717ea5fdcbcfe",
- measurementId: "G-B603CWP3RT"
+ appId: "1:540899168475:web:afbeabde1bf0b106dcbcfe",
+ measurementId: "G-S45K09RYXW"
+};
+};
   };
 };
 const app = initializeApp(firebaseConfig);
