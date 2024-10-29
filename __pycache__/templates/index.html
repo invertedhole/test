@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduWise Chatbot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/styles.css') }}">
+    <script src="{{ url_for('static', filename='script/scripts.js') }}" defer></script>
+</head>
+<body>
+    <h1>Чат-бот EduWise</h1>
+    <form onsubmit="sendMessage(event)">
+        <label for="message">Введите ваше сообщение:</label><br>
+        <input type="text" id="message" required>
+        <button type="submit">Отправить</button>
+    </form>
+    <h2>Ответ:</h2>
+    <p id="response"></p>
+</body>
+</html>
